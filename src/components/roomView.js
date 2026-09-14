@@ -47,7 +47,12 @@ export function renderRoomView(container, roomId, myUserId, playersData, isHost,
         <div class="room-actions">
           <button id="toggleReadyBtn" class="btn-large"></button>
           ${isHost ? `<button id="startGameBtn" class="btn-large btn-accent" style="margin-top: 10px;" disabled></button>` : ''}
-          ${isHost ? `<button id="resetRoomBtn" class="btn-large btn-danger" style="margin-top: 10px;">방 초기화</button>` : ''}
+          ${isHost ? `
+            <div class="action-row" style="margin-top: 10px;">
+              <button id="resetRoomBtn" class="btn-large btn-secondary">데이터 초기화</button>
+              <button id="deleteRoomBtn" class="btn-large btn-danger">방 폭파</button>
+            </div>
+          ` : ''}
         </div>
       </div>
     `;
@@ -72,8 +77,17 @@ export function renderRoomView(container, roomId, myUserId, playersData, isHost,
     const resetBtn = document.getElementById('resetRoomBtn');
     if (resetBtn) {
       resetBtn.onclick = () => {
-        if (confirm("방 데이터를 초기화하시겠습니까? (모든 플레이어의 준비 상태와 게임 데이터가 삭제됩니다)")) {
+        if (confirm("방 데이터를 초기화하시겠습니까? (모든 플레이어의 준비 상태와 게임 데이터가 리셋됩니다)")) {
           callbacks.onResetRoom();
+        }
+      };
+    }
+    
+    const deleteBtn = document.getElementById('deleteRoomBtn');
+    if (deleteBtn) {
+      deleteBtn.onclick = () => {
+        if (confirm("정말로 방을 폭파하시겠습니까? (모든 인원이 로비로 쫓겨납니다)")) {
+          callbacks.onDeleteRoom();
         }
       };
     }

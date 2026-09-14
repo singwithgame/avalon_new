@@ -361,7 +361,13 @@ function refreshCurrentView() {
           await api.setPlayerReady(appState.roomId, id, false);
         }
         await api.updateRoot({
-          [`rooms/${appState.roomId}/playData`]: null
+          [`rooms/${appState.roomId}/playData`]: null,
+          [`rooms/${appState.roomId}/gameState`]: 'lobby'
+        });
+      },
+      onDeleteRoom: async () => {
+        await api.updateRoot({
+          [`rooms/${appState.roomId}`]: null
         });
       },
       onStartGame: async (options) => {
