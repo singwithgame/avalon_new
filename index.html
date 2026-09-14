@@ -5,11 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>레지스탕스 아발론: 온라인</title>
   
-  <!-- Fonts: Pretendard for body, Cinzel for title -->
+  <!-- Fonts: Pretendard for all (Runway principle: single proprietary sans) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&display=swap" rel="stylesheet">
   
   <!-- Markdown Parser for History View -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -17,6 +14,7 @@
   <!-- Styles -->
   <link rel="stylesheet" href="/src/styles/main.css">
   <link rel="stylesheet" href="/src/styles/game.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
 </head>
 <body class="dark-theme">
   <!-- Background Effect -->
@@ -25,11 +23,10 @@
   <div id="app" class="app-container">
     <header class="app-header">
       <div class="logo">
-        <span class="shield-icon">🛡️</span>
-        <h1 class="game-title">AVALON</h1>
+        <h1 class="game-title">avalon</h1>
       </div>
       <div id="header-status" class="header-status">
-        <span class="header-phase-pill">로딩 중...</span>
+        <span class="header-phase-pill eyebrow">로딩 중...</span>
       </div>
     </header>
 
@@ -46,7 +43,7 @@
   </div>
 
   <!-- Version Watermark -->
-  <div id="versionWatermark">v2.0 (Vite)</div>
+  <div id="versionWatermark">v2.1 (Runway UI)</div>
 
   <!-- Entry Script -->
   <script type="module" src="/src/main.js"></script>

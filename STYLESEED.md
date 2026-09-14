@@ -1,0 +1,23 @@
+# StyleSeed — Design Lock
+<!-- Persistent selections. This file cannot waive core invariants. -->
+- App domain: default
+- Surface: web-app
+- Surface adapter: product-ui
+- Page type: generic
+- Output grammar: generic
+- Grammar path: built-in:engine/RULESETS.md
+- Grammar fallback: generic
+- Reference confidence: n/a
+- Brand recipe: generic
+- Palette recipe: default
+- Aesthetic profile: none
+- Skin: stripe
+- Primary action: #0F766E
+- Font: Inter
+- Radius: medium
+- Elevation: light=tonal grouping + restrained shadow · dark=tonal ramp + hairline
+- Density: comfortable
+- Motion: Spring restrained
+- Imagery/data role: contextual
+- Signature move: none
+- Locked: $(date +%Y-%m-%d)
