@@ -172,18 +172,21 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 .btn-sm { padding: 8px 16px; font-size: 13px; min-height: 36px; }
 
 .btn-primary, .btn-accent {
-  background: var(--ink);
-  color: var(--bg-canvas);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
 }
 .btn-primary:not(:disabled):hover, .btn-accent:not(:disabled):hover { 
-  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .btn-secondary {
-  background: var(--surface-elevated);
-  color: var(--ink);
+  background: transparent;
+  color: var(--graphite);
+  border: 1px solid var(--hairline);
 }
-.btn-secondary:hover { background: var(--hairline); }
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.05); color: var(--ink); }
 
 .btn-success {
   background: var(--good-blue);
