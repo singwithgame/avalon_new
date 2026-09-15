@@ -1,3 +1,4 @@
+import { escapeHtml } from '../../utils/domUtils.js';
 // src/components/phases/TeamSelection.js
 import { QUEST_CAPACITY } from '../../logic/constants.js';
 
@@ -12,7 +13,7 @@ export function renderTeamSelection(playData, playersData, myUserId) {
         <p class="subtitle">당신은 원정대장입니다. 대원을 지목하세요.</p>
         <div id="teamSelectionGrid" class="selection-grid">
           ${playData.playerOrder.map(id => `
-            <label class="select-label"><input type="checkbox" value="${id}" class="team-checkbox"> ${playersData[id].nickname}</label>
+            <label class="select-label"><input type="checkbox" value="${id}" class="team-checkbox"> ${escapeHtml(playersData[id].nickname)}</label>
           `).join('')}
         </div>
         <div style="text-align: center; margin-top: 25px;">

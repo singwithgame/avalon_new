@@ -1,3 +1,4 @@
+import { escapeHtml } from '../../utils/domUtils.js';
 // src/components/phases/Assassin.js
 import { ROLES } from '../../logic/constants.js';
 
@@ -14,7 +15,7 @@ export function renderAssassin(playData, playersData, myRole) {
             const targetRole = playersData[id].role;
             const evilRoles = [ROLES.ASSASSIN, ROLES.MORGANA, ROLES.MODRED, ROLES.OBERON, ROLES.MINION];
             if (evilRoles.includes(targetRole)) return '';
-            return `<option value="${id}">${playersData[id].nickname}</option>`;
+            return `<option value="${id}">${escapeHtml(playersData[id].nickname)}</option>`;
           }).join('')}
         </select>
         <div style="text-align: center; margin-top: 25px;">

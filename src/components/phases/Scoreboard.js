@@ -1,3 +1,4 @@
+import { escapeHtml } from '../../utils/domUtils.js';
 import { QUEST_CAPACITY } from '../../logic/constants.js';
 
 export function renderScoreboard(playData, totalPlayers, playersData) {
@@ -50,7 +51,7 @@ export function renderScoreboard(playData, totalPlayers, playersData) {
       <div class="player-order-list" style="display: flex; gap: 5px; overflow-x: auto; padding-bottom: 5px;">
         ${shiftedOrder.map((p, idx) => `
           <div class="order-item ${p.isCurrent ? 'current-leader' : ''}">
-            ${p.isCurrent ? '👑' : ''} ${playersData[p.id].nickname}
+            ${p.isCurrent ? '👑' : ''} ${escapeHtml(playersData[p.id].nickname)}
           </div>
           ${idx < shiftedOrder.length - 1 ? '<span style="color: var(--text-muted);">▶</span>' : ''}
         `).join('')}

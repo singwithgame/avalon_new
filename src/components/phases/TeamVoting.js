@@ -1,3 +1,4 @@
+import { escapeHtml } from '../../utils/domUtils.js';
 // src/components/phases/TeamVoting.js
 export function renderTeamVoting(playData, myUserId, playersData) {
   return `

@@ -1,3 +1,4 @@
+import { escapeHtml } from '../utils/domUtils.js';
 export function renderRoomView(container, roomId, myUserId, playersData, isHost, callbacks) {
   const playerCount = Object.keys(playersData).length;
   let readyCount = 0;
@@ -15,7 +16,7 @@ export function renderRoomView(container, roomId, myUserId, playersData, isHost,
     return `
       <div class="player-list-item ${statusClass}">
         <div class="player-name">
-          ${isHostMarker} ${p.nickname} ${isMe ? '<span class="me-tag">(나)</span>' : ''}
+          ${isHostMarker} ${escapeHtml(p.nickname)} ${isMe ? '<span class="me-tag">(나)</span>' : ''}
         </div>
         <div class="status-badge ${statusClass}">${statusText}</div>
       </div>

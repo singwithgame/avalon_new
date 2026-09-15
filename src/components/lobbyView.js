@@ -1,3 +1,4 @@
+import { escapeHtml } from '../utils/domUtils.js';
 export function renderLobbyView(container, callbacks) {
   container.innerHTML = `
     <div class="view-card animate-fade-in">

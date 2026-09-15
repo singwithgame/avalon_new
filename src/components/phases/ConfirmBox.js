@@ -1,3 +1,4 @@
+import { escapeHtml } from '../../utils/domUtils.js';
 // src/components/phases/ConfirmBox.js
 export function renderConfirmBox(gameState, playData, myUserId, playersData, isHost) {
   const isConfirmed = playData.confirmations && playData.confirmations[myUserId];

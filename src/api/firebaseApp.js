@@ -65,27 +65,14 @@ class FirebaseAPI {
   }
 
   async verifyAdmin(adminKey) {
-    // 프론트엔드 코드에 비밀번호나 해시를 전혀 남기지 않고,
-    // 오직 파이어베이스 보안 규칙에 100% 의존하여 검증하는 방식입니다.
+    // 더미 방 무한 생성에 따른 DB 폭발을 막기 위해 단일 테스트 노드만 덮어쓰기 방식으로 검증
     try {
-      let testRoomId;
-      let isUnique = false;
-      while (!isUnique) {
-        testRoomId = Math.floor(1000 + Math.random() * 9000).toString();
-        const snapshot = await get(ref(this.db, `rooms/${testRoomId}`));
-        if (!snapshot.exists()) isUnique = true;
-      }
-
-      // 파이어베이스 보안 규칙에 의해 비밀번호가 틀리면 여기서 에러가 발생하여 catch로 넘어갑니다.
-      const testRef = ref(this.db, `rooms/${testRoomId}`);
+      const testRef = ref(this.db, `rooms/admin_test_room`);
       await set(testRef, {
         createdAt: serverTimestamp(),
         adminKey: adminKey,
-        gameState: 'dummy_test' // 가짜 방임을 표시
+        gameState: 'dummy_test'
       });
-
-      // 24시간 내 삭제 금지 규칙 때문에 즉시 지우지 않고 그대로 둡니다.
-      // 남겨진 더미 방은 앱 실행 시 자동으로 작동하는 cleanupOldRooms()에 의해 24시간 뒤 깔끔하게 청소됩니다.
       return true;
     } catch (error) {
       return false;
@@ -105,20 +92,8 @@ class FirebaseAPI {
   }
 
   async cleanupOldRooms() {
-    const cutoffTime = Date.now() - (24 * 60 * 60 * 1000);
-    const roomsQuery = query(ref(this.db, 'rooms'), orderByChild('createdAt'), endAt(cutoffTime));
-    try {
-      const snapshot = await get(roomsQuery);
-      if (snapshot.exists()) {
-        const updates = {};
-        snapshot.forEach((child) => { updates[`rooms/${child.key}`] = null; });
-        if (Object.keys(updates).length > 0) {
-          await update(ref(this.db), updates);
-        }
-      }
-    } catch (e) {
-      console.warn("오래된 방 정리 실패 (권한 없음 무시):", e);
-    }
+    // 클라이언트 사이드 청소는 대역폭 낭비 및 지연을 유발하므로 폐기.
+    // 서버 측 TTL(Time-To-Live) 또는 Cloud Functions에서 처리 권장.
   }
 
   // --- Sync Listeners ---
@@ -153,10 +128,17 @@ class FirebaseAPI {
     const isHostUnresponsive = hostData ? (estimatedServerTime - (hostData.lastActive || 0) > 180000) : false; // 3분 무응답
 
     if (!currentHostId || !hostData || isHostOffline || isHostUnresponsive) {
-      await runTransaction(ref(this.db, `rooms/${roomId}/host`), (inDbHost) => {
-        if (inDbHost === currentHostId || !inDbHost) return myUserId;
-        return; // 변경 안함
-      });
+      // 10명의 클라이언트가 동시에 트랜잭션을 발생시키는 것을 방지하기 위해 랜덤 딜레이 적용
+      const delay = Math.floor(Math.random() * 2000);
+      setTimeout(async () => {
+        const currentHostSnap = await get(ref(this.db, `rooms/${roomId}/host`));
+        if (currentHostSnap.val() && currentHostSnap.val() !== currentHostId) return; // 이미 다른 누군가가 탈취함
+
+        await runTransaction(ref(this.db, `rooms/${roomId}/host`), (inDbHost) => {
+          if (inDbHost === currentHostId || !inDbHost) return myUserId;
+          return; // 변경 안함
+        });
+      }, delay);
     }
   }
 
