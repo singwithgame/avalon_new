@@ -58,33 +58,40 @@
 
 ---
 
-## 🚀 로컬 실행 및 배포 방법
+## 🚀 나만의 아발론 서버 만들기 (How to Fork & Deploy)
 
-### 1. 패키지 설치 및 환경 설정
-본 프로젝트는 Vite를 사용하므로 Node.js가 필요합니다.
+본 프로젝트는 누구나 쉽게 복사하여 자신만의 아발론 온라인 서버를 구축할 수 있도록 설계되었습니다. 아래 순서대로 진행해 보세요!
+
+### 1. 저장소 포크(Fork) 및 클론(Clone)
+* GitHub 페이지 우측 상단의 **Fork** 버튼을 눌러 본인의 계정으로 저장소를 복사합니다.
+* 복사한 저장소를 로컬 PC로 클론하고 패키지를 설치합니다.
 ```bash
+git clone https://github.com/본인계정/avalon_new.git
+cd avalon_new
 npm install
 ```
 
-### 2. Firebase 연동
-`/src/api/firebaseApp.js` 파일 내의 `firebaseConfig` 객체를 본인의 Firebase 프로젝트 설정으로 변경해주세요.
+### 2. 나만의 Firebase 연동하기
+* [Firebase Console](https://console.firebase.google.com/)에서 새 프로젝트를 생성하고 **Realtime Database**를 활성화합니다.
+* Firebase 프로젝트 설정에서 웹 앱을 추가한 뒤 제공되는 `firebaseConfig` 객체 값을 프로젝트 최상단의 `firebase-config.js` (또는 해당 설정 부분)에 덮어씁니다.
 
 ### 3. 로컬 테스트 실행
 ```bash
 npm run dev
 ```
+로컬 환경(`localhost`)에서 게임이 정상적으로 실행되고 방 생성이 되는지 확인합니다.
 
-### 4. 프로덕션 빌드
+### 4. 프로덕션 빌드 및 무료 호스팅
 ```bash
 npm run build
 ```
-빌드된 정적 파일들은 `dist/` 디렉토리에 생성되며, 이를 GitHub Pages, Vercel, Netlify 등을 통해 쉽게 무료 호스팅 할 수 있습니다.
+Vite를 통해 빌드된 정적 파일들은 `dist/` 폴더에 생성됩니다. 이를 **GitHub Pages, Vercel, Netlify** 등을 통해 클릭 몇 번으로 전 세계 어디서든 접속 가능한 무료 웹사이트로 배포할 수 있습니다!
 
 ---
 
 ## 📜 라이선스 (License)
-이 프로젝트는 오픈 소스로 제공되며 MIT License를 따릅니다. 단, 'The Resistance: Avalon'의 게임 규칙 및 원작의 상표권은 원작자(Indie Boards & Cards)에게 있습니다. 이 소프트웨어는 상업적 목적으로 사용될 수 없으며, 개인적인 친목 및 스터디 용도로만 활용되어야 합니다.
-
+* **소스 코드 라이선스:** 본 프로젝트의 모든 소스 코드는 **MIT License**로 배포됩니다. 누구나 자유롭게 코드를 열람, 수정, 배포 및 상업적/비상업적 목적으로 활용할 수 있습니다.
+* **원작 IP 안내:** 단, 구현된 'The Resistance: Avalon'의 게임 규칙, 명칭 및 세계관에 대한 지적재산권(IP)은 원작사인 **Indie Boards & Cards**에 있습니다. 코드를 바탕으로 직접 서비스를 운영하실 때는 원작의 상표권 및 저작권을 침해하지 않도록 주의하시기 바랍니다.
 ---
 
 *✨ 이 프로젝트는 AI 파트너(Gemini)와 함께 **바이브코딩(Vibe Coding)**을 통해 기획, 디자인, 아키텍처 설계, 그리고 개발되었습니다.*
