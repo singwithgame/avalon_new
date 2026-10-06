@@ -1,3 +1,5 @@
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 export function renderHistoryView(container, historyItems, callbacks) {
   const renderItem = ([id, game]) => {
     const dateStr = game.date || (game.timestamp ? new Date(game.timestamp).toLocaleString('ko-KR') : '날짜 없음');
@@ -24,11 +26,7 @@ export function renderHistoryView(container, historyItems, callbacks) {
         
         document.getElementById('historyDetailTitle').innerText = `${game.roomId}방 결과`;
         const htmlContent = document.getElementById('historyHtmlContent');
-        if (window.marked) {
-          htmlContent.innerHTML = window.marked.parse(activeMarkdown, { breaks: true });
-        } else {
-          htmlContent.innerHTML = "<p>Markdown 파서를 불러오지 못했습니다.</p>";
-        }
+        htmlContent.innerHTML = DOMPurify.sanitize(marked.parse(activeMarkdown, { breaks: true }));
         document.getElementById('historyMdContent').value = activeMarkdown;
       });
     });

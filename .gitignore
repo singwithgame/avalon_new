@@ -25,6 +25,5 @@ dist-ssr
 
 # Exclude specific folders as requested
 legacy/
-tests/
 playwright-report/
 test-results/

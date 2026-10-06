@@ -113,7 +113,7 @@ function renderLobby() {
       document.getElementById('btnCancelPwd').onclick = () => modalOverlay.classList.add('hidden');
       document.getElementById('btnConfirmPwd').onclick = async () => {
         const pwd = document.getElementById('adminPwd').value;
-        const newCode = Math.floor(1000 + Math.random() * 9000).toString();
+        const newCode = Math.random().toString(36).substring(2, 8).toUpperCase();
         const success = await api.createRoom(newCode, pwd);
         if (success) {
           modalOverlay.classList.add('hidden');

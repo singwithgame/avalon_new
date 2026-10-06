@@ -1,7 +1,7 @@
 {
   "name": "resistance-avalon",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,5 +12,9 @@
   "devDependencies": {
     "@playwright/test": "^1.62.1",
     "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "dompurify": "^3.4.16",
+    "marked": "^18.1.0"
   }
 }
